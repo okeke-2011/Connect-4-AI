@@ -16,6 +16,42 @@ def show_board(board):
         print("-------------------------------------------")
 
 
+def convert_board_to_string(board, player):
+    y, r, w = "🟡", "🔴", "⚪️"
+    if player == r:
+        str_board = "R,"
+    elif player == y:
+        str_board = "Y,"
+
+    for row in board:
+        for cell in row:
+            if cell == w:
+                str_board += "W"
+            elif cell == r:
+                str_board += "R"
+            elif cell == y:
+                str_board += "Y"
+    return str_board
+
+
+# def convert_string_to_board(string):
+#     y, r = "🟡", "🔴"
+#     board = create_board()
+#     pointer = 0
+#     string = string.split(",")[1]
+#     for i in range(len(board)):
+#         for j in range(len(board[i])):
+#             if string[pointer] == "W":
+#                 pass
+#             elif string[pointer] == "R":
+#                 board[i][j] = r
+#             elif string[pointer] == "Y":
+#                 board[i][j] = y
+#
+#             pointer += 1
+#     return board
+
+
 def get_diagonals(board, bltr=True):
     return_grid = [[] for total in range(12)]
     for i in range(7):

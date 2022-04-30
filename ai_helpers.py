@@ -2,6 +2,21 @@ import numpy as np
 from game_play_helpers import *
 
 
+def convert_ai_move_to_string(search_result):
+    if search_result is None:
+        return "None"
+    else:
+        return str(search_result[0]) + "," + str(search_result[1])
+
+
+def convert_str_to_ai_move(string):
+    if string == "None":
+        return None
+    else:
+        value, move = string.split(",")
+        return float(value), int(move)
+
+
 def is_terminal(board):
     return full_board(board) or check_win(board)[0]
 
