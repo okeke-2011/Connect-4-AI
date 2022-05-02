@@ -37,6 +37,7 @@ def run_training_session():
     session_data = []
     num_sessions_completed = 0
     print("\nRunning session...")
+    session_start_time = time.time()
     while who_starts:
         starter = who_starts.pop()
         session_data.append(train_ai(starter, num_rounds, move_generation))
@@ -47,14 +48,14 @@ def run_training_session():
         print(f"{completion_rate}% complete |{'='*fill_bars + ' '*(25 - fill_bars)}|", end="")
         print("\r", end="")
 
-    total_session_time = 0
+    total_ai_playing_time = 0
     total_num_learned_moves = 0
     w, d, l = 0, 0, 0
 
     print("\n")
     for i in range(len(session_data)):
         total_num_learned_moves += session_data[i][0]
-        total_session_time += session_data[i][1]
+        total_ai_playing_time += session_data[i][1]
         if session_data[i][2] == "W":
             w += 1
         elif session_data[i][2] == "D":
@@ -62,15 +63,12 @@ def run_training_session():
         elif session_data[i][2] == "L":
             l += 1
 
-        # print(f"SESSION {i+1} DATA")
-        # print(f"Number of new moves learned: {session_data[i][0]} moves")
-        # print(f"Total time spent by AI: {round(session_data[i][1], 3)} seconds")
-        # print(f"Result of game: {session_data[i][2]}")
-        # print("\n")
+    total_session_time = time.time() - session_start_time
 
     print(f"FULL SESSION SUMMARY")
     print(f"Total number of moves learned: {total_num_learned_moves} moves")
-    print(f"Total AI training time: {round(total_session_time, 3)} seconds")
+    print(f"Total AI playing time: {round(total_ai_playing_time, 3)} seconds")
+    print(f"Total Session time: {round(total_session_time, 3)} seconds")
     print(f"Number of rounds played each game: {num_rounds} rounds")
     print(f"Win rate: {round((w*100)/num_sessions, 1)}%")
     print(f"Draw rate: {round((d*100)/num_sessions, 1)}%")
