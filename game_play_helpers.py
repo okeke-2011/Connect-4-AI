@@ -152,7 +152,6 @@ def make_move(board, player, col):
 
 
 def possible_moves(board):
-    y, r, w = "🟡", "🔴", "⚪️"
     moves = []
     for col in range(7):
         if not col_full(board, col):

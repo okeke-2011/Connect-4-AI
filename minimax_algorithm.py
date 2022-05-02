@@ -22,10 +22,12 @@ def memoize_search(search):
     session = Session()
 
     def inner(board, player):
+        new_state = False
         target_board_state = convert_board_to_string(board, player)
         found_board = session.query(SavedMoves).filter_by(board_state=target_board_state).first()
 
         if found_board is None:
+            new_state = True
             str_optimal_move = convert_ai_move_to_string(search(board, player))
             new_saved_move = SavedMoves(board_state=target_board_state,
                                         optimal_move=str_optimal_move)
@@ -34,7 +36,7 @@ def memoize_search(search):
         else:
             str_optimal_move = found_board.optimal_move
 
-        return convert_str_to_ai_move(str_optimal_move)
+        return convert_str_to_ai_move(str_optimal_move), new_state
 
     return inner
 

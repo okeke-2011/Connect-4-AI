@@ -46,7 +46,7 @@ def play_ai(ai = "R"):
             
         elif current_player == ai:
             start = time.time()
-            ai_move = alpha_beta_search(board, current_player)
+            ai_move, new_state = alpha_beta_search(board, current_player)
             time_spent = time.time() - start
             
             if str(ai_move[0]) in utils.keys():
